@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/User")
@@ -21,12 +23,16 @@ public class UserController {
     public ResponseEntity<User> saveUser(@RequestBody @Valid UserRequest userRequest) {
         return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
     }
+    @PostMapping("/saveList")
+    public ResponseEntity<List<User>> saveListOfUser(@RequestBody @Valid Set<UserRequest> users) {
+        return new ResponseEntity<>(userService.saveUsers(users), HttpStatus.CREATED);
+    }
     @GetMapping("/FetchAll")
     public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
     }
     @GetMapping("{userId}")
-    public ResponseEntity<User> getUser(@PathVariable Integer userId){
+    public ResponseEntity<User> getUser(@PathVariable UUID userId){
         return  ResponseEntity.ok(userService.getUser(userId));
     }
 }

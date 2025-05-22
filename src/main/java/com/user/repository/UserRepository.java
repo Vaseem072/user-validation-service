@@ -4,9 +4,11 @@ import com.user.entity.User;
 import jakarta.persistence.Id;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository  extends JpaRepository<User , Id>{
+import java.util.UUID;
 
-    public  User findByUserId(int id);
+public interface UserRepository  extends JpaRepository<User, UUID>{
+
+    public  User findByUserId(UUID id);
 
     User findByName(String userName);
 }
